@@ -5,6 +5,10 @@ class Organization < ApplicationRecord
 
   #== ASSOCIATIONS =========================================
 
+  has_many :users, inverse_of: :organization
+  
+  #== ENUMS ================================================
+
   #== ACCEPTED ATTRIBUTES ==================================
 
   #== VALIDATIONS ==========================================

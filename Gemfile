@@ -62,5 +62,13 @@ end
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
+# Used for multitenant
+gem 'acts_as_tenant'
+# Better console output for objects
+gem 'awesome_print'
+# Used for stilization
+gem 'bootstrap'
+# Used for authentication
+gem 'devise'
 # Used for slug creation
 gem 'friendly_id', '~> 5.4.0'
