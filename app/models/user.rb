@@ -9,6 +9,8 @@ class User < ApplicationRecord
 
   #== ASSOCIATIONS =========================================
 
+  has_many :stories
+
   #== ENUMS ================================================
 
   enum role: { writer: 0, chief_editor: 1 }
@@ -27,9 +29,12 @@ class User < ApplicationRecord
 
   #== INSTANCE METHODS =====================================
 
-  def get_slug
-    unless slug.present?
-      slug = organization.slug
+  def role_name
+    case role
+    when 'writer'
+      'Writer'
+    when 'chief_editor'
+      'Chief Editor'
     end
   end
 
@@ -39,6 +44,14 @@ class User < ApplicationRecord
     conditions = warden_conditions.dup
     if conditions[:email] && conditions[:organization]
       joins(:organization).where(organizations: { slug: conditions[:organization] }, users: { email: conditions[:email] }).first
+    end
+  end
+
+  private
+
+  def get_slug
+    unless slug.present?
+      slug = organization.slug
     end
   end
 end

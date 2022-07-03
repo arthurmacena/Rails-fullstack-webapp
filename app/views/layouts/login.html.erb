@@ -6,14 +6,6 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-      <div id="application-header">
-        <nav class="navbar navbar-light bg-light">
-          <h2 id=title-nav><%= @current_organization.name %></h2>
-          <div class="d-flex mr-auto p-2">
-            <%= link_to "logout", destroy_user_session_path, :method => :delete %>
-          </div>
-        </nav>
-      </div>
     <center><p class="notice"><%= notice %></p></center>
     <center><p class="alert"><%= alert %></p></center>
 

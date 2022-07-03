@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<div>
+  <h1>Stories</h1>
+  <div>
+    <small h3> <%= current_user.name %> </small h3><br>
+    <small h3> <%= current_user.role_name %> </small>
+  </div>
+</div>
+
+<table>
+  <thead>
+    <tr>
+      <th>Headline</th>
+      <th>Body</th>
+      <th>Status</th>
+      <th colspan="1"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @stories.each_with_index do |story, index| %>
+      <tr>
+        <td>Story <%= index + 1 %> <%= story.title %></td>
+        <td><%= story.body %></td>
+        <td><%= story.status_name %></td>
+        <td><%= link_to 'Edit', edit_story_path(story) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Story', new_story_path %>
