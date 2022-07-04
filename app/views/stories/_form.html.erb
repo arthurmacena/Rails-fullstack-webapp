@@ -1,37 +1,33 @@
-<%= form_with(model: story) do |form| %>
-  <% if story.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(story.errors.count, "error") %> prohibited this story from being saved:</h2>
+<div class="card">
+    <div class="card-body">
+    <%= simple_form_for(@story) do |f| %>
+      <%= f.error_notification %>
+      <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
 
-      <ul>
-        <% story.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
+      <div class="form-inputs">
+        <div class="row">
+          <div class="form-group col-md-8 col-xs-12">
+            <%= f.input :title %>
+          </div>
+          <div class="col-sm">
+            <%= f.input :status_name, class:"form-control", disabled: true %>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+          <%= f.input :writer_id, collection: User.where(role: 0).reorder('name').collect { |u| [u.name, u.id] } %>
+          </div>
+          <div class="col">
+          <%= f.input :reviewer_id, collection: User.where(role: 0).reorder('name').collect { |u| [u.name, u.id] } %>
+          </div>
+        </div>
+        <%= f.rich_text_area :content %>
+      </div>
 
-  <div class="field">
-    <%= form.label :title %>
-    <%= form.text_field :title %>
+      <div class="form-actions mt-2">
+        <%= f.button :submit, "Save", class:'btn btn-primary'  %>
+        <%= render 'statuses_actions', story: @story %>
+      </div>
+    <% end %>
   </div>
-
-  <div class="field">
-    <%= form.label :writer %>
-    <%= form.select(:writer_id, User.where(role: 0).reorder('name').collect { |u| [u.name, u.id] }, {include_blank: true}, multiple: false) %>
-  </div>
-
-  <div class="field">
-    <%= form.label :reviewer %>
-    <%= form.select(:reviewer_id, User.where(role: 0).reorder('name').collect { |u| [u.name, u.id] }, {include_blank: true}, multiple: false) %>
-  </div>
-
-  <div class="field">
-    <%= form.label :body %>
-    <%= form.text_area :body %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit 'Save'%>
-  </div>
-<% end %>
+</div>

@@ -1,5 +1,43 @@
-<h1>Editing Story</h1>
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="<%=stories_path%>">Home</a></li>
+    <li class="breadcrumb-item active" aria-current="page"><%=@story.title%></li>
+  </ol>
+</nav>
 
-<%= render 'form', story: @story %>
+<section class="content">
+  <div class="row">
+    <div class="col-xs-12">
+      <%= render 'form', story: @story %>
+      <%= link_to 'Cancel', stories_path, class: 'btn btn-primary mt-2' %>
+    </div>
+  </div>
+</section>
 
-<%= link_to 'Cancel', stories_path %>
+<section class="content mt-4">
+  <div class="row">
+    <div class="col-xs-12">
+      <h3>Comments (<%=@story.comments.count%>)</h3>
+      <div class="card">
+        <div class="card-body">
+          <% @story.comments.reorder(created_at: :asc).each do |comment| %>
+            <p class="mt-2 mb-0"> <%=comment.user.name%>: </p>
+            <div class="card">
+              <div class="card-body">
+                <p> <%= comment.body %> </p>
+              </div>
+            </div>
+          <% end %>
+          <% if @story.status == 'in_review' || @story.content.body.blank?  %>
+            <%= form_with model: [@story, @story.comments.build] do |f| %> 
+              <div class="mb-3 mt-4">
+                <%= f.text_area :body, class:"form-control", rows:"3" %> 
+              </div>
+              <%= f.submit "POST", class: 'btn btn-primary'%> 
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

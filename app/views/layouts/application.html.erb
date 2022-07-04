@@ -10,7 +10,15 @@
         <nav class="navbar navbar-light bg-light">
           <h2 id=title-nav><%= @current_organization.name %></h2>
           <div class="d-flex mr-auto p-2">
-            <%= link_to "logout", destroy_user_session_path, :method => :delete %>
+            <li class="nav-link dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <%= current_user.name %><br>
+                <%= current_user.role_name %>
+              </a>
+              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                <%= link_to "Logout", destroy_user_session_path, method: :delete, class:'dropdown-item' %>
+              </div>
+            </li>
           </div>
         </nav>
       </div>

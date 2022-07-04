@@ -1,5 +1,10 @@
 <h1>New Story</h1>
 
-<%= render 'form', story: @story %>
-
-<%= link_to 'Cancel', stories_path %>
+<section class="content">
+  <div class="row">
+    <div class="col-xs-12">
+      <%= render 'form', story: @story %>
+      <%= link_to 'Cancel', stories_path, class: 'btn btn-primary' %>
+    </div>
+  </div>
+</section>

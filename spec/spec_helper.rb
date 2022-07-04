@@ -13,7 +13,7 @@
 # it.
 #
 # See https://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
-# require "pundit/rspec"
+require "pundit/rspec"
 require "capybara/rspec"
 
 RSpec.configure do |config|

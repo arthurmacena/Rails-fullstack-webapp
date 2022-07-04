@@ -1,35 +1,71 @@
-<p id="notice"><%= notice %></p>
 
-<div>
-  <h1>Stories</h1>
-  <div>
-    <small h3> <%= current_user.name %> </small h3><br>
-    <small h3> <%= current_user.role_name %> </small>
+<div class="row">
+  <div class="card card-default">
+    <div class="card-body">
+      <div class="card-title mt-2">
+        <h3>Stories</h3>
+      </div>
+      <form class="form form-multiline form-filter" role="form" method="get">
+        <div class="row">
+          <div class="form-group col-md-2">
+            <%= label_tag 'status' %>
+            <%= select_tag(:status, options_for_select(@status, @selected_status), class: 'form-control select2', include_blank: false, prompt: 'Todos') %>
+          </div>
+          <div class="form-group col-md-2">
+            <%= label_tag 'Writer/Reviewer' %>
+            <%= select_tag(:user_id, options_for_select(@writers, @selected_user_id), class: 'form-control select2', include_blank: false, prompt: 'Todos') %>
+          </div>
+          <div class="form-group col-md-12 mt-2">
+            <button type="submit" class="btn btn-primary">Filtrar</button>
+          </div>
+        </div>
+      </form>
+    </div>
   </div>
 </div>
-
-<table>
-  <thead>
-    <tr>
-      <th>Headline</th>
-      <th>Body</th>
-      <th>Status</th>
-      <th colspan="1"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @stories.each_with_index do |story, index| %>
-      <tr>
-        <td>Story <%= index + 1 %> <%= story.title %></td>
-        <td><%= story.body %></td>
-        <td><%= story.status_name %></td>
-        <td><%= link_to 'Edit', edit_story_path(story) %></td>
-      </tr>
-    <% end %>
-  </tbody>
+<%= link_to 'NEW', new_story_path, class: 'btn btn-primary mt-2 mb-2 px-3 mx-2' %>
+<div class="row">
+    <div class="col-xs-12">
+      <div class="box">
+        <div class="box-body">
+          <table id="stories-table" class="table table-bordered table-striped">
+            <thead>
+              <tr>
+                <th class="visible-md visible-lg"> HeadLine </th>
+                <th class="visible-md visible-lg"> Writer </th>
+                <th class="visible-md visible-lg"> Reviewer </th>
+                <th class="visible-md visible-lg"> Status </th>
+                <th class='actions'>&nbsp;</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @stories_paged.each_with_index do |story, index| %>
+              <tr>
+                <td class="mobile-contents">Story <%= index + 1 %> <%= story.title%></td>
+                <td class="mobile-contents"><%= story.writer.name if story.writer.present?%></td>
+                <td class="mobile-contents"><%= story.reviewer.name if story.reviewer.present?%></td>
+                <td class="mobile-contents"><%= story.status_name %></td>
+                <td class='actions'>
+                  <%= link_to edit_story_path(story), class: 'btn btn-primary btn-xs' do %>
+                    <span><i class="fa fa-edit"></i><b>Editar</b></span>
+                  <% end %>
+                </td>
+              </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+        <!-- /.box-body -->
+        <div class="box-footer clearfix">
+          <%= paginate @stories_paged %>
+        </div>
+      </div>
+      <!-- /.box -->
+    </div>
+    <!-- /.col -->
+  </div>
+  <!-- /.row -->
 </table>
 
 <br>
 
-<%= link_to 'New Story', new_story_path %>
