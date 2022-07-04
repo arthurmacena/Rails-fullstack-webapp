@@ -5,7 +5,7 @@ RSpec.describe "Creating a new user", type: :feature do
     scenario "Um user já registrado, com email e senha corretos" do
       user = FactoryBot.create(:user, password: "123123")
       visit new_user_session_path
-      fill_in "Organization", with: user.organization.slug
+      fill_in "Slug", with: user.organization.slug
       fill_in "Email", with: user.email
       fill_in "Password", with: "123123"
       click_on "Log in"

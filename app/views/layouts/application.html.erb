@@ -6,8 +6,24 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
+      <div id="application-header">
+        <nav class="navbar navbar-light bg-light">
+          <h2 id=title-nav><%= @current_organization.name %></h2>
+          <div class="d-flex mr-auto p-2">
+            <li class="nav-link dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <%= current_user.name %><br>
+                <%= current_user.role_name %>
+              </a>
+              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                <%= link_to "Logout", destroy_user_session_path, method: :delete, class:'dropdown-item' %>
+              </div>
+            </li>
+          </div>
+        </nav>
+      </div>
+    <center><p class="notice"><%= notice %></p></center>
+    <center><p class="alert"><%= alert %></p></center>
 
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>

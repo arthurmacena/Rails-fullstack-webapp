@@ -1,0 +1,14 @@
+<% if @story.status == 'draft' %>
+  <%= link_to 'Request Review', story_for_review_path(@story), method: :patch, class: "btn btn-primary float-end"%>
+<% end %>
+<% if @story.status == 'for_review' %>
+  <%= link_to 'Review', story_in_review_path(@story), method: :patch, class: "btn btn-primary float-end"%>
+<% end %>
+<% if @story.status == 'in_review' %>
+  <%= link_to 'Approve', story_approved_path(@story), method: :patch, class: "btn btn-primary float-end"%>
+  <%= link_to 'Request Changes', story_pending_path(@story), method: :patch, class: "btn btn-warning float-end"%>
+<% end %>
+<% if @story.status == 'approved' %>
+  <%= link_to 'Publish', story_published_path(@story), method: :patch, class: "btn btn-primary float-end"%>
+  <%= link_to 'Archive', story_archived_path(@story), method: :patch, class: "btn btn-secondary float-end"%>
+<% end %>
