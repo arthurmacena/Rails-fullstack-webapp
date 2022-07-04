@@ -10,9 +10,9 @@ with basic editing and publishing capabilities
 
 ## Configuration
 
-$ bundle install
-$ rails db:create db:migrate
-$ yarn install
+$ bundle install__
+$ rails db:create db:migrate__
+$ yarn install__
 $ rails s
 
 ## Creating organization and users for login
