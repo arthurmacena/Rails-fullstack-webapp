@@ -1,4 +1,4 @@
-# LocalLabs-Trial-Task
+# Task
 The company decided that for a Minimum Viable Product (MVP), the platform needs to
 offer its clients (media outlets) the means to create text content in the form of story pieces,
 with basic editing and publishing capabilities
